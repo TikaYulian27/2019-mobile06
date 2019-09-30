@@ -7,15 +7,29 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import id.ac.polinema.idealbodyweight.fragments.BrocaIndexFragment;
+import id.ac.polinema.idealbodyweight.fragments.MenuFragment;
+
+public class MainActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener, BrocaIndexFragment.OnFragmentInteractionListener {
 
 	private AboutFragment aboutFragment;
+	private MenuFragment menuFragment;
+	private BrocaIndexFragment brocaIndexFragment;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		aboutFragment = AboutFragment.newInstance("Tika");
+		menuFragment = new MenuFragment();
+
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, menuFragment)
+				.commit();
+
+		brocaIndexFragment = new BrocaIndexFragment();
+
 	}
 
 	@Override
@@ -38,5 +52,22 @@ public class MainActivity extends AppCompatActivity {
 
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onCalculateBrocaIndexClicked(float index) {
+
+	}
+
+	@Override
+	public void onBrocaIndexButtonClicked() {
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, brocaIndexFragment)
+				.commit();
+	}
+
+	@Override
+	public void onBodyMassIndexButtonClicked() {
+
 	}
 }
